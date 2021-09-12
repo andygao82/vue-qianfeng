@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ajax</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<button @click="getData()">Get Data</button>
+		<ul>
+			<li v-for="item of items">
+				<p>Name - {{item.firstName}} {{item.lastName}}</p>
+				<p>phone - {{item.phoneNumber}}</p>
+				<p>Email - {{item.emailAddress}}</p>
+			</li>
+		</ul>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: "#box",
+			data: {
+				items: []
+			},
+			methods: {
+				getData() {
+					fetch("./test.json").then(res=>res.json()).then(res=>{
+						console.log(res.users)
+						this.items = res.users
+					})
+				}
+			}
+		});
+	</script>
+</body>
+</html>

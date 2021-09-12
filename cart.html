@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cart</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<style>
+
+	</style>
+
+</head>
+	<body>
+		<div id="app">
+			<input type="text" v-model.lazy="string" />
+			{{string}}
+			<br>
+			<input type="number" v-model.number="number" />
+			{{number}}
+			<br>
+			<input type="text" v-model.trim="username" />
+			{{username}}
+			<br>
+			{{changeHappened()}}
+			<input type="checkbox"  :value="isChecked" @change="handleChange()">
+			<p>{{isChecked}}</p>
+			<ul>
+				<li v-for="item of items">
+					<input type="checkbox" v-model="checkGroup" :value='item' @change="handleLiChange">
+					name: {{item.name}} <br>
+					price: {{item.price}} <br>
+					id: {{item.id}} <br>
+					<button @click="minusOne(item)">-</button>
+					<span>{{item.stock}}</span>
+					<button @click="plusOne(item)">+</button>
+				</li>
+			</ul>
+			<p>{{checkGroup}}</p>
+			<p id="total">total: {{sum()}}</p>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					isChecked: false,
+					string: '',
+					number: '',
+					username: '',
+					totalPrice: '',
+					checkGroup: [],
+					items: [
+						{
+							name: "item1",
+							price: 20,
+							stock: 12,
+							id: 1
+						},
+						{
+							name: "item2",
+							price: 22,
+							stock: 122,
+							id: 2
+						},
+						{
+							name: "item3",
+							price: 210,
+							stock: 2,
+							id: 3
+						},
+						{
+							name: "item4",
+							price: 120,
+							stock: 1,
+							id: 4
+						}
+					]
+				},
+				methods:{
+					changeHappened() {
+						if(this.checkGroup.length > 0){
+							return "change happened"
+						}
+					},
+					sum() {
+						var sum = 0;
+						for(var i in this.checkGroup){
+							sum += this.checkGroup[i].stock * this.checkGroup[i].price
+						}
+						return sum;
+					},
+					handleChange() {
+						this.isChecked = !this.isChecked;
+						if(this.isChecked){
+							this.checkGroup = this.items
+						}else{
+							this.checkGroup = []
+						}
+					},
+					handleLiChange() {
+						if(this.checkGroup.length === this.items.length){
+							this.isChecked = true
+						}else{
+							this.isChecked = false
+						}
+					},
+					minusOne(item) {
+						if(item.stock > 0){
+							item.stock--
+						}
+					},
+					plusOne(item) {
+						item.stock++
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

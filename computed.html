@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Computed</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<div id="box">
+		<input type="text" v-model="name">
+		{{updateMyName}}
+		{{updateMyNameMethod()}}
+
+		<div>
+			{{updateMyName}}
+			{{updateMyNameMethod()}}
+		</div>
+
+		<div>
+			<input v-model="search" type="text" name="search" value="" placeholder="Search ...">
+			<ul>
+				<li v-for="single of searchInput">{{single}}</li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el: "#box",
+			data: {
+				name: '',
+				search: '',
+				searchArray: ["aaa","bbb","cas","dws","ess","ees"],
+			},
+			methods: {
+				updateMyNameMethod() {
+					console.log('method')
+					return this.name.substring(0,1).toUpperCase() + this.name.substring(1)
+				}
+			},
+			computed: {
+				updateMyName() {
+					console.log('property')
+					return this.name.substring(0,1).toUpperCase() + this.name.substring(1)
+				},
+				searchInput() {
+					return this.searchArray.filter(item=>item.indexOf(this.search)>-1)
+				}
+
+			}
+		});
+	</script>
+</body>
+</html>

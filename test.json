@@ -1,0 +1,48 @@
+{
+	"users": [
+	  {
+		"userId": 1,
+		"firstName": "Krish",
+		"lastName": "Lee",
+		"phoneNumber": "123456",
+		"emailAddress": "krish.lee@learningcontainer.com",	"description":"Lady with a red umbrella",
+		"imageurl":"https://i.imgur.com/pwpWaWu.jpg"
+	  },
+	  {
+		"userId": 2,
+		"firstName": "racks",
+		"lastName": "jacson",
+		"phoneNumber": "123456",
+		"emailAddress": "racks.jacson@learningcontainer.com",
+		"description":"Lady with a red umbrella",
+		"imageurl":"https://i.imgur.com/pwpWaWu.jpg"
+	  },
+	  {
+		"userId": 3,
+		"firstName": "denial",
+		"lastName": "roast",
+		"phoneNumber": "33333333",
+		"emailAddress": "denial.roast@learningcontainer.com",
+		"description":"Flowers and some fruits",
+		"imageurl":"https://i.imgur.com/KIPtISY.jpg"
+	  },
+	  {
+		"userId": 4,
+		"firstName": "devid",
+		"lastName": "neo",
+		"phoneNumber": "222222222",
+		"emailAddress": "devid.neo@learningcontainer.com",
+		"description":"Beautiful scenery",
+		"imageurl":"https://i.imgur.com/2jMCqQ2.jpg"
+	  },
+	  {
+		"userId": 5,
+		"firstName": "jone",
+		"lastName": "mac",
+		"phoneNumber": "111111111",
+		"emailAddress": "jone.mac@learningcontainer.com",
+		"description":"Some kind of bird",
+		"imageurl":"https://i.imgur.com/QFDRuAh.jpg"
+	  }
+	]
+  }

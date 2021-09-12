@@ -3,10 +3,21 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Example</title>
+	<title>Basic</title>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 </head>
+<style>
+	.red{
+		background-color: red;
+	}
+	.yellow{
+		background-color: yellow;
+	}
+	.yellow.red{
+		background-color: orange;
+	}
+</style>
 <body>
 	<div id="box">
 		{{ 10+20 }}, {{ myName }}
@@ -14,6 +25,60 @@
 		{{ 10>20?'aaa':'bbb' }}
 
 		<div v-html="myHtml"></div>
+
+		<div v-show="isShow">showing</div> 
+
+		<div v-if="isCreate">Creating</div>
+
+		<div :class="classes?'red':'yellow'">classes</div>
+		<div :class="classObj">classes</div>
+		<div :class="classArray">classes</div>
+
+		<button @click="changeClass()">change</button>
+
+		<div v-if="isWorking">123</div>
+		<div v-else>456</div>
+
+		<button @click="handleClick()">Handle</button>
+
+		<ul v-if="isWorking === 1">
+			<li v-for="(item, index) in items">{{item}} -- {{index}}</li>
+		</ul>
+		<div v-else-if="isWorking === 2">
+			Fool
+		</div>
+		<div v-else>Nothing</div>
+
+		<button @click="handleClick()">Handle</button>
+
+		<ul>
+			<li v-for="(objItem, key) of objItems">
+				{{objItem}} -- {{key}}
+			</li>
+		</ul>
+
+		<input @input="searchInput()"  v-model="search" type="text" name="searcd" value="" placeholder="Search ...">
+		<ul>
+			<li v-for="single of searchArray">{{single}}</li>
+		</ul>
+
+		<ul @click.self="clickUl">
+			<li @click.stop="clickLi">111</li>
+			<li @click="clickLi">111</li>
+			<li @click.once="clickLi">111</li>
+		</ul>
+
+		<a href="http://google.com" @click.prevent="stopGoGoogle">go google</a>
+		<br>
+		<input type="text" @keyup.enter="handleKeyUp($event)" v-model="keyupText">
+
+		<input type="checkbox" v-model="isCheck">
+		{{isCheck}}
+		<br>
+		<input type="checkbox" v-model="checkGroup" value="1">1
+		<input type="checkbox" v-model="checkGroup" value="2">2
+		<input type="checkbox" v-model="checkGroup" value="3">3
+		{{checkGroup}}
 	</div>
 	
 	<script>
@@ -21,7 +86,51 @@
 			el: "#box",
 			data: {
 				myName: "Kerwin",
-				myHtml: "<b>asdf</b>"
+				myHtml: "<b>asdf</b>",
+				isShow: false,
+				isCreate: true,
+				classes: true,
+				classObj: {
+					red: true,
+					yellow: false
+				},
+				classArray: ["red","yellow"],
+				isWorking: 1,
+				items: ["item1", "item2", "item3"],
+				objItems: {
+					name: "Kevin",
+					age: 100,
+					gender: "male"
+				},
+				searchArray: ["aaa","bbb","cas","dws","ess","ees"],
+				search: "",
+				keyupText: "",
+				isCheck: false,
+				checkGroup: []
+			},
+			methods: {
+				changeClass(){
+					this.classes = !this.classes
+				},
+				handleClick(){
+					this.isWorking++
+				},
+				searchInput(){
+					var newArray = this.searchArray.filter(item=>item.indexOf(this.search)>-1)
+					//this.searchArray = newArray
+				},
+				clickUl(){
+					console.log('ul clicked')
+				},
+				clickLi(){
+					console.log('li clicked')
+				},
+				stopGoGoogle(){
+					console.log('haha')
+				},
+				handleKeyUp(){
+					console.log(this.keyupText)
+				}
 			}
 		});
 	</script>
