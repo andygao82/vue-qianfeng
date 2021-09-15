@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Component</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<navbar myname="home" :isshow="false"></navbar>
+		<navbar myname="list" :isshow="true"></navbar>
+		<navbar :myname="name" :isshow="true"></navbar>
+		<sidebar @myevent="handleEvent($event)"></sidebar>
+	</div>
+	<script>
+		Vue.component("navbar", {
+			template: `
+				<div>
+					<button @click="handleClick()" v-show="isshow">Home</button>
+					{{navbarName}} -- {{myname}}
+					<button>Back</button>
+					<navbarChild></navbarChild>
+				</div>
+			`,
+			methods: {
+				handleClick() {
+					console.log(123)
+				}
+			},
+			data() {
+				return {
+					navbarName: 'Nav Name'
+				}
+			},
+			components: {
+				navbarChild: {
+					template: `
+						<p>
+							This is NavBar
+						</p>
+					`
+				}	
+			},
+			//props: ["myname", "isshow"]
+			props: {
+				myname: String,
+				isshow: Boolean
+			}
+		});
+
+		Vue.component("sidebar", {
+			template: `
+				<div>
+					sidebar
+					<button @click="gotIt()">click</button>
+				</div>
+			`,
+			methods: {
+				gotIt() {
+					this.$emit("myevent", this.sidebarName)
+				}
+			},
+			data() {
+				return {
+					sidebarName: 'sidebar name'
+				}
+			},
+		});
+
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				name: 'from Parent'
+			},
+			methods:{
+				handleEvent(e) {
+					console.log("got it", e)
+				}
+			}
+		});
+	</script>
+</body>
+</html>

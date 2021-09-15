@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bus</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<child-one></child-one>
+		<child-two></child-two>
+	
+	</div>
+	<script>
+		var bus = new Vue();
+
+		Vue.component("child-one",{
+			template:`
+				<div>
+					this is child {{childName}} <br>	
+					<input type="text" v-model="message">
+					<button @click=sendMessage()>Send</button>
+				</div>
+			`,
+			data() {
+				return{
+					childName: 'Angela',
+					message: ''
+				}
+			},
+			methods:{
+				sendMessage() {
+					bus.$emit('childonemessage', this.message)
+				}
+			}
+		})
+		Vue.component("child-two",{
+			template:`
+				<div>
+					this is child {{childName}} <br>	
+				</div>
+			`,
+			data() {
+				return{
+					childName: 'Daniel'
+				}
+			},
+			methods:{
+				childFunction() {
+					console.log("child function")
+				}
+			},
+			mounted(){
+				bus.$on("childonemessage", (e)=>{
+					console.log('get message', e)
+				})
+			}
+		})
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				mytext: ''
+			},
+			methods:{
+				handleClick(){
+				
+				}
+			}
+		});
+	</script>
+</body>
+</html>
